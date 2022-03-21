@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import './App.css';
 
 function App() {
+
+  const [countDownReached, setCountDownReached] = useState(false)
   const [days, setDays] = useState(0);
   const [hours, setHours] = useState(0);
   const [minutes, setMinutes] = useState(0);
@@ -26,6 +28,10 @@ function App() {
       setMinutes(m);
       const s = Math.floor((difference % (1000 * 60)) / 1000);
       setSeconds(s);
+
+      if(d <= 0 && h <= 0 && m<= 0 && s <= 0){
+        setCountDownReached(true)
+      }
     }, 1000);
 
     return () => {
@@ -35,6 +41,9 @@ function App() {
 
   return (
     <div className='App'>
+      {
+        countDownReached ? <h1>TIMMER DONE</h1> :
+
       <div className='timer-wrapper'>
         <div className='timer-inner'>
           <div className='timer-segment'>
@@ -55,6 +64,7 @@ function App() {
           </div>
         </div>
       </div>
+  }
     </div>
   );
 }
